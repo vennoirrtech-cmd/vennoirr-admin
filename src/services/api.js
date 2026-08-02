@@ -50,7 +50,8 @@ export const adminAuthService = {
   logout: () => {
     localStorage.removeItem('vennoirr_admin_token');
     localStorage.removeItem('vennoirr_admin_user');
-    window.location.href = '/login';
+    // Do NOT use window.location.href here — let the caller use React Router's navigate()
+    // so the app stays in SPA mode without a hard page reload.
   },
   getCurrentUser: () => {
     const user = localStorage.getItem('vennoirr_admin_user');
