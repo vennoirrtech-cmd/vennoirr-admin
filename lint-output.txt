@@ -1,0 +1,19 @@
+
+> admin-panel@0.0.0 lint
+> eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0
+
+
+C:\Users\Tech Galaxy\Desktop\cloth\admin-panel\src\App.jsx
+  1:40  error  'Navigate' is defined but never used  no-unused-vars
+
+C:\Users\Tech Galaxy\Desktop\cloth\admin-panel\src\pages\Login.jsx
+  10:10  error  'error' is assigned a value but never used  no-unused-vars
+
+C:\Users\Tech Galaxy\Desktop\cloth\admin-panel\src\pages\Orders.jsx
+  2:23  error  'Filter' is defined but never used  no-unused-vars
+
+C:\Users\Tech Galaxy\Desktop\cloth\admin-panel\src\pages\ProductForm.jsx
+  3:40  error  'X' is defined but never used  no-unused-vars
+
+✖ 4 problems (4 errors, 0 warnings)
+
