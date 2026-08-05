@@ -1,17 +1,34 @@
 import { useState } from 'react';
 import { Save, Store, User, Bell } from 'lucide-react';
+import { toast } from 'react-hot-toast';
 import './Settings.css';
 
 const Settings = () => {
   const [loading, setLoading] = useState(false);
+  const [storeData, setStoreData] = useState({
+    name: 'VENNOIRR',
+    email: 'support@vennoirr.com',
+    currency: 'INR'
+  });
+  const [notifications, setNotifications] = useState({
+    orders: true,
+    stock: true,
+    daily: false
+  });
 
-  const handleSave = (e) => {
+  const handleSave = async (e) => {
     e.preventDefault();
     setLoading(true);
-    setTimeout(() => {
+    
+    try {
+      // API integration point for settings
+      await new Promise(r => setTimeout(r, 800)); // simulated latency
+      toast.success('Settings saved successfully!');
+    } catch (error) {
+      toast.error('Failed to save settings.');
+    } finally {
       setLoading(false);
-      alert('Settings saved successfully!');
-    }, 800);
+    }
   };
 
   return (
@@ -37,15 +54,15 @@ const Settings = () => {
           <div className="section-content">
             <div className="form-group">
               <label>Store Name</label>
-              <input type="text" defaultValue="VENNOIRR" />
+              <input type="text" value={storeData.name} onChange={(e) => setStoreData({...storeData, name: e.target.value})} />
             </div>
             <div className="form-group">
               <label>Contact Email</label>
-              <input type="email" defaultValue="support@vennoirr.com" />
+              <input type="email" value={storeData.email} onChange={(e) => setStoreData({...storeData, email: e.target.value})} />
             </div>
             <div className="form-group">
               <label>Currency Format</label>
-              <select defaultValue="INR">
+              <select value={storeData.currency} onChange={(e) => setStoreData({...storeData, currency: e.target.value})}>
                 <option value="INR">₹ (INR)</option>
                 <option value="USD">$ (USD)</option>
               </select>
@@ -84,15 +101,15 @@ const Settings = () => {
           <div className="section-content">
             <label className="toggle-label">
               <span>Order Confirmations</span>
-              <input type="checkbox" defaultChecked className="toggle" />
+              <input type="checkbox" checked={notifications.orders} onChange={(e) => setNotifications({...notifications, orders: e.target.checked})} className="toggle" />
             </label>
             <label className="toggle-label">
               <span>Low Stock Alerts</span>
-              <input type="checkbox" defaultChecked className="toggle" />
+              <input type="checkbox" checked={notifications.stock} onChange={(e) => setNotifications({...notifications, stock: e.target.checked})} className="toggle" />
             </label>
             <label className="toggle-label">
               <span>Daily Sales Report</span>
-              <input type="checkbox" className="toggle" />
+              <input type="checkbox" checked={notifications.daily} onChange={(e) => setNotifications({...notifications, daily: e.target.checked})} className="toggle" />
             </label>
           </div>
         </section>

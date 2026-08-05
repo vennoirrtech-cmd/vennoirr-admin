@@ -42,6 +42,8 @@
   color: var(--text-muted);
   cursor: pointer;
   padding: 0.25rem;
+  min-width: 44px;
+  min-height: 44px;
 }
 
 .sidebar-nav {
@@ -67,6 +69,7 @@
   font-weight: 500;
   font-size: 0.95rem;
   transition: var(--transition);
+  min-height: 44px;
 }
 
 .nav-link:hover {

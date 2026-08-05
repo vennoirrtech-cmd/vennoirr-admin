@@ -1,5 +1,5 @@
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, Package, ShoppingBag, Folder, Settings, LogOut, X } from 'lucide-react';
+import { LayoutDashboard, Package, ShoppingBag, Folder, Settings, LogOut, X, Users } from 'lucide-react';
 import { adminAuthService } from '../services/api';
 import './Sidebar.css';
 
@@ -18,6 +18,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
     { name: 'Dashboard', path: '/', icon: LayoutDashboard },
     { name: 'Products', path: '/products', icon: Package },
     { name: 'Orders', path: '/orders', icon: ShoppingBag },
+    { name: 'Customers', path: '/customers', icon: Users },
     { name: 'Categories', path: '/categories', icon: Folder },
     { name: 'Settings', path: '/settings', icon: Settings },
   ];

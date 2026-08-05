@@ -22,6 +22,8 @@
   color: var(--text-muted);
   cursor: pointer;
   padding: 0.5rem;
+  min-width: 44px;
+  min-height: 44px;
   transition: color 0.2s;
 }
 
@@ -75,6 +77,11 @@
   position: relative;
   transition: color 0.2s;
   padding: 0.5rem;
+  min-width: 44px;
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .icon-btn:hover {

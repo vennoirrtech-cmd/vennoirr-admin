@@ -6,6 +6,7 @@ import './Orders.css';
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [searchTerm, setSearchTerm] = useState('');
 
   const fetchOrders = async () => {
     setLoading(true);
@@ -59,7 +60,12 @@ const Orders = () => {
       <div className="orders-controls glass mb-6">
         <div className="search-box">
           <Search size={18} />
-          <input type="text" placeholder="Search by Order ID or Customer Name..." />
+          <input 
+            type="text" 
+            placeholder="Search by Order ID or Customer Name..." 
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+          />
         </div>
       </div>
 
@@ -79,7 +85,10 @@ const Orders = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.map(order => (
+              {orders.filter(order => 
+                 order._id.toLowerCase().includes(searchTerm.toLowerCase()) || 
+                 (order.customerName && order.customerName.toLowerCase().includes(searchTerm.toLowerCase()))
+              ).map(order => (
                 <tr key={order._id}>
                   <td className="font-medium text-accent">{order._id}</td>
                   <td>{order.customerName}</td>

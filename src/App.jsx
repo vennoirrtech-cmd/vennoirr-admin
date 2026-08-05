@@ -8,6 +8,8 @@ import ProductForm from './pages/ProductForm';
 import Orders from './pages/Orders';
 import Categories from './pages/Categories';
 import Settings from './pages/Settings';
+import Customers from './pages/Customers';
+import CustomerDetails from './pages/CustomerDetails';
 import './index.css';
 
 function App() {
@@ -24,6 +26,9 @@ function App() {
           <Route path="products/edit/:id" element={<ProductForm />} />
           {/* Orders */}
           <Route path="orders" element={<Orders />} />
+          {/* Customers */}
+          <Route path="customers" element={<Customers />} />
+          <Route path="customers/:id" element={<CustomerDetails />} />
           {/* Categories */}
           <Route path="categories" element={<Categories />} />
           {/* Settings */}
