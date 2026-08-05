@@ -192,7 +192,7 @@ const ProductForm = () => {
         ...formData,
         price: Number(formData.price) || 0,
         mrp: Number(formData.mrp) || 0,
-        stockQuantity: Number(formData.stock) || 0,
+        stockQuantity: Number(formData.stockQuantity) || 0,
         sizes: formData.sizes ? formData.sizes.split(',').map(s => s.trim()) : [],
         colors: formData.colors ? formData.colors.split(',').map(c => c.trim()) : [],
         images: finalImages,
