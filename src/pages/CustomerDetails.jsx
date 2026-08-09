@@ -48,6 +48,7 @@ const CustomerDetails = () => {
       case 'delivered': return 'delivered';
       case 'cancelled': return 'cancelled';
       case 'pending': return 'pending';
+      case 'confirmed': return 'info';
       default: return 'info';
     }
   };
@@ -142,7 +143,7 @@ const CustomerDetails = () => {
             </div>
             <div className="stat-box">
               <div className="text-muted text-sm">Total Spent</div>
-              <div className="value">₹{customer.totalSpending || orders.reduce((sum, o) => sum + (o.total || 0), 0)}</div>
+              <div className="value">₹{customer.totalSpending || orders.reduce((sum, o) => sum + (o.totalAmount || 0), 0)}</div>
             </div>
           </div>
         </div>
@@ -164,40 +165,40 @@ const CustomerDetails = () => {
                 <div key={order._id} className="order-item">
                   <div className="order-header">
                     <div>
-                      <span className="font-semibold text-accent">Order #{order._id.substring(0, 8)}...</span>
+                      <span className="font-semibold text-accent">Order #{order.orderNumber || (order._id?.substring(0, 8) + '...')}</span>
                       <span className="text-muted text-sm ml-3">
                         {new Date(order.date || order.createdAt).toLocaleDateString()}
                       </span>
                     </div>
-                    <span className={`status-badge ${getStatusClass(order.status)}`}>
-                      {order.status || 'Pending'}
+                    <span className={`status-badge ${getStatusClass(order.orderStatus)}`}>
+                      {order.orderStatus || 'Pending'}
                     </span>
                   </div>
                   
                   <div className="order-products flex flex-col gap-2 mt-3 mb-4">
-                    {(order.products || []).map((prod, idx) => (
-                      <div key={idx} className="flex justify-between items-center text-sm border-b border-gray-800 pb-2">
+                    {(order.items || []).map((item, idx) => (
+                      <div key={item._id || idx} className="flex justify-between items-center text-sm border-b border-gray-800 pb-2">
                         <div className="flex items-center gap-2">
                           <div className="w-10 h-10 bg-gray-800 rounded flex items-center justify-center overflow-hidden">
-                            {prod.image ? (
-                              <img src={prod.image} alt={prod.name} className="w-full h-full object-cover" />
+                            {item.image ? (
+                              <img src={item.image} alt={item.name} className="w-full h-full object-cover" />
                             ) : (
                               <ShoppingBag size={16} className="text-muted" />
                             )}
                           </div>
                           <div>
-                            <div className="font-medium">{prod.name || 'Product name not available'}</div>
-                            <div className="text-muted text-xs">Qty: {prod.quantity || 1}</div>
+                            <div className="font-medium">{item.name || 'Product'}</div>
+                            <div className="text-muted text-xs">Qty: {item.quantity || 1}{item.size ? ` | Size: ${item.size}` : ''}</div>
                           </div>
                         </div>
-                        <div className="font-medium">₹{prod.price * (prod.quantity || 1)}</div>
+                        <div className="font-medium">₹{item.totalPrice || (item.price * item.quantity)}</div>
                       </div>
                     ))}
                   </div>
                   
                   <div className="flex justify-between items-center pt-2 font-semibold">
                     <span>Total Amount</span>
-                    <span className="text-lg">₹{order.total || 0}</span>
+                    <span className="text-lg">₹{order.totalAmount || 0}</span>
                   </div>
                 </div>
               ))}
