@@ -3,10 +3,10 @@ import { Outlet, Navigate } from 'react-router-dom';
 import Sidebar from '../components/Sidebar';
 import Header from '../components/Header';
 import { adminAuthService } from '../services/api';
-import './AdminLayout.css';
 
 const AdminLayout = () => {
-  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
   const isAuthenticated = adminAuthService.isAuthenticated();
 
   if (!isAuthenticated) {
@@ -14,12 +14,27 @@ const AdminLayout = () => {
   }
 
   return (
-    <div className="admin-layout">
-      {sidebarOpen && <div className="sidebar-overlay" onClick={() => setSidebarOpen(false)}></div>}
-      <Sidebar isOpen={sidebarOpen} setIsOpen={setSidebarOpen} />
-      <div className="main-content">
-        <Header toggleSidebar={() => setSidebarOpen(!sidebarOpen)} />
-        <main className="main-scroll">
+    <div className="min-h-screen bg-[var(--bg)] flex font-inter text-[var(--ink)]">
+      {/* Mobile Sidebar Overlay */}
+      {mobileSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-black/40 backdrop-blur-sm z-40 lg:hidden transition-opacity"
+          onClick={() => setMobileSidebarOpen(false)}
+        />
+      )}
+      
+      <Sidebar 
+        isCollapsed={sidebarCollapsed} 
+        setIsCollapsed={setSidebarCollapsed}
+        isMobileOpen={mobileSidebarOpen}
+        setIsMobileOpen={setMobileSidebarOpen}
+      />
+      
+      <div className={`flex-1 flex flex-col min-w-0 transition-all duration-200 ${sidebarCollapsed ? 'lg:ml-[64px]' : 'lg:ml-[240px]'}`}>
+        <Header 
+          toggleMobileSidebar={() => setMobileSidebarOpen(!mobileSidebarOpen)} 
+        />
+        <main className="flex-1 overflow-x-hidden overflow-y-auto bg-[var(--bg)] relative p-6 max-w-full">
           <Outlet />
         </main>
       </div>
